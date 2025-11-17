@@ -12,7 +12,19 @@ export const getPayment = async (paymentId: string): Promise<Payment | null> => 
     return (result.Item as Payment) || null;
 };
 
-export const listPayments = async (): Promise<Payment[]> => {
+export const listPayments = async (currency?: string): Promise<Payment[]> => {
+
+    const scanParams: any = {
+        TableName: 'Payments',
+    };
+
+    if (currency) {
+        scanParams.FilterExpression = 'currency = :currency';
+        scanParams.ExpressionAttributeValues = {
+            ':currency': currency
+        };
+    }
+
     const result = await DocumentClient.send(
         new ScanCommand({
             TableName: 'Payments',
