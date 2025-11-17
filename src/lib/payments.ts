@@ -25,11 +25,7 @@ export const listPayments = async (currency?: string): Promise<Payment[]> => {
         };
     }
 
-    const result = await DocumentClient.send(
-        new ScanCommand({
-            TableName: 'Payments',
-        })
-    );
+    const result = await DocumentClient.send(new ScanCommand(scanParams));
 
     return (result.Items as Payment[]) || [];
 };
