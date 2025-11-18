@@ -1,6 +1,6 @@
-import * as payments from '../src/lib/payments';
+import { PaymentService } from '../src/services/PaymentService';
 import { randomUUID } from 'crypto';
-import { handler } from '../src/getPayment';
+import { handler } from '../src/handlers/getPayment';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
 describe('When the user requests the records for a specific payment', () => {
@@ -11,7 +11,7 @@ describe('When the user requests the records for a specific payment', () => {
             currency: 'AUD',
             amount: 2000,
         };
-        const getPaymentMock = jest.spyOn(payments, 'getPayment').mockResolvedValueOnce(mockPayment);
+        const getPaymentMock = jest.spyOn(PaymentService.prototype, 'getPayment').mockResolvedValueOnce(mockPayment);
 
         const result = await handler({
             pathParameters: {

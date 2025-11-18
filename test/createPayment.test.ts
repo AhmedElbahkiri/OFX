@@ -1,4 +1,4 @@
-import { handler } from '../src/createPayment';
+import { handler } from '../src/handlers/createPayment';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
 describe('createPayment validation', () => {
